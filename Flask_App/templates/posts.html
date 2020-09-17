@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Results</title>
+{% endblock %}
+
+
+{% block body %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">"This American Life" Recommender</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Designer's Links
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="https://github.com/er-arcadio/Podcast_Recommender">GitHub</a>
+          <a class="dropdown-item" href="https://www.linkedin.com/in/emmanuel-a-rodriguez">LinkedIn</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled">Welcome {{posts.id}}!</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0" action="/search/{{posts.id}}" method="POST" align="right">
+      <input class="form-control mr-sm-2" type="text" name="search" id="search" autocomplete="off" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Search">Search</button>
+    </form>
+  </div>
+</nav>
+
+<br><br>
+
+
+
+{% if posts.search_results %}
+<h1>Search Results for "{{posts.query}}"</h1>
+    {% for result in posts.search_results %}
+        <form action="/{{posts.id}}/{{posts.query}}" method="POST">
+        <p>{{ result.0 }}</p> <input class="btn btn-outline-danger btn-sm" type="button" onclick="location.href = '{{result.1}}';" value="Go to Podcast">
+            <button class="btn btn-outline-success btn-sm" name="like" type="submit" value="{{result.0}}">Like</button>
+        </form>
+
+        <br>
+    {% endfor %}
+<hr>
+{% endif %}
+
+
+{% if posts.recommendations %}
+<h1>Recommended for You</h1>
+<h3>User: {{posts.id}}</h3>
+    {% for rec in posts.recommendations %}
+        <form action="/{{posts.id}}/{{posts.query}}" method="POST">
+        <p>{{ rec.0 }}</p>
+            <input class="btn btn-outline-danger btn-sm" type="button" onclick="location.href = '{{rec.1}}';" value="Go to Podcast">
+            <button class="btn btn-outline-success btn-sm" name="like" type="submit" value="{{rec.0}}">Like</button>
+        </form>
+
+        <br>
+    {% endfor %}
+{% else %}
+<p>Like a podcasts to update to your personal recommendations</p>
+{% endif %}
+
+<br><br>
+
+
+{% endblock %}

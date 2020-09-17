@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Home</title>
+{% endblock %}
+
+
+{% block body %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">"This American Life" Recommender</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Designer's Links
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="https://github.com/er-arcadio/Podcast_Recommender">GitHub</a>
+          <a class="dropdown-item" href="https://www.linkedin.com/in/emmanuel-a-rodriguez">LinkedIn</a>
+        </div>
+      </li>
+    </ul>
+
+  </div>
+</nav>
+
+<br><br>
+
+<h1>Search for a Podcast</h1>
+
+<form action="/home" method="POST">
+  <div class="form-group">
+    <label for="id">User ID</label>
+    <input type="text" class="form-control" name="id" id="id" autocomplete="off" aria-describedby="emailHelp" placeholder="Enter user ID">
+    <small id="emailHelp" class="form-text text-muted">We need this for personalized recommendations</small>
+  </div>
+  <div class="form-group">
+    <label for="query">Search</label>
+    <input type="text" class="form-control" name="query" id="query" autocomplete="off" placeholder="Enter search">
+  </div>
+  <button type="submit" class="btn btn-primary">Search</button>
+</form>
+{% endblock %}
